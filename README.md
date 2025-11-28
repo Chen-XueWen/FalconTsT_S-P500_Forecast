@@ -44,8 +44,14 @@ python sp500_falcon_forecast.py \
 ## Error metrics (per horizon)
 ```math
 \text{MAE}  = \frac{1}{N} \sum_{t=1}^N |y_t - \hat{y}_t|
-\text{MSE}  = \frac{1}{N} \sum_{t=1}^N (y_t - \hat{y}_t)^2
+```
+```math
+\text{MSE}  = \frac{1}{N} \sum_{t=1}^N (y_t - \hat{y}_t)^2 \\
+```
+```math
 \text{RMSE} = \sqrt{\text{MSE}}
+```
+```math
 \text{MAPE} = \frac{100}{N} \sum_{t=1}^N \left|\frac{y_t - \hat{y}_t}{y_t}\right|
 ```
 
