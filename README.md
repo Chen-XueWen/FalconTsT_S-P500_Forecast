@@ -42,15 +42,29 @@ python sp500_falcon_forecast.py \
 - Plot saved to `sp500_falcon_forecast.png` showing actual closes (2024+2025) and aligned forecasts for all horizons.
 
 ## Error metrics (per horizon)
-- MAE: \( \text{MAE} = \frac{1}{N} \sum_{t=1}^N |y_t - \hat{y}_t| \)
-- MSE: \( \text{MSE} = \frac{1}{N} \sum_{t=1}^N (y_t - \hat{y}_t)^2 \)
-- RMSE: \( \text{RMSE} = \sqrt{\text{MSE}} \)
-- MAPE: \( \text{MAPE} = \frac{100}{N} \sum_{t=1}^N \left|\frac{y_t - \hat{y}_t}{y_t}\right| \)
+```math
+\text{MAE}  = \frac{1}{N} \sum_{t=1}^N |y_t - \hat{y}_t|
+\text{MSE}  = \frac{1}{N} \sum_{t=1}^N (y_t - \hat{y}_t)^2
+\text{RMSE} = \sqrt{\text{MSE}}
+\text{MAPE} = \frac{100}{N} \sum_{t=1}^N \left|\frac{y_t - \hat{y}_t}{y_t}\right|
+```
 
 ## Baseline formulations
-- Moving Average (window \(w\)): \(\hat{y}_{t+h} = \frac{1}{w} \sum_{i=1}^{w} y_{t+1-i}\). In chunked mode, the same mean is used for the next block, then history is updated with revealed actuals.
-- ARIMA \((p,d,q)\): fitted on the recent close history with trend; forecasts the next block \(\hat{y}_{t+1}, \dots, \hat{y}_{t+h}\) from the ARIMA mean equation, then history is rolled forward with actuals.
-- GARCH(1,1) on returns: model returns \(r_t\); mean return forecast \(\hat{r}_{t+j}\) is compounded into price: \(\hat{P}_{t+j} = \hat{P}_{t+j-1} \times (1 + \hat{r}_{t+j})\) for the block, then history is rolled forward with actuals.
+- Moving Average (window \(w\)):
+```math
+\hat{y}_{t+h} = \frac{1}{w} \sum_{i=1}^{w} y_{t+1-i}
+```
+  (Chunked: reuse this mean for the next block, then refresh history with revealed actuals.)
+- ARIMA \((p,d,q)\):
+```math
+\hat{y}_{t+1}, \dots, \hat{y}_{t+h}
+```
+  come from the ARIMA mean equation fitted on recent closes (with trend), then history is rolled forward with actuals.
+- GARCH(1,1) on returns:
+```math
+\hat{P}_{t+j} = \hat{P}_{t+j-1} \times (1 + \hat{r}_{t+j})
+```
+  where \(\hat{r}_{t+j}\) is the forecast mean return; after each block, history is refreshed with actuals.
 - Falcon-TST: Transformer that forecasts the next block (1/5/10/20 days) from the recent standardized context; after each block, the true block is appended and the next block is predicted.
 
 ## Notes
