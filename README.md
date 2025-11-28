@@ -1,4 +1,4 @@
-# S&P 500 Forecasting with Falcon-TST and Baselines
+# S&P 500 Forecasting with Falcon-TST and Statistical Baselines
 
 This script downloads S&P 500 daily data, fits a few simple baselines, and runs multi-horizon forecasts with the Falcon Time Series Transformer. It evaluates rolling blocks of 1, 5, 10, and 20 days into the 2025 test period, then plots the results.
 
