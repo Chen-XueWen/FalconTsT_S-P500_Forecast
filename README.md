@@ -12,6 +12,8 @@ This script downloads S&P 500 daily data, fits a few simple baselines, and runs 
 
 ## Experimental Results
 
+![experimentplot](https://github.com/Chen-XueWen/FalconTsT_SP500_Forecast/blob/main/sp500_falcon_forecast.png)
+
 
 ### Horizon 1 day
 
