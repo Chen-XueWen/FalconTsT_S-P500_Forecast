@@ -50,12 +50,12 @@ python sp500_falcon_forecast.py \
 ```
 
 ## Baseline formulations
-- Moving Average (window \(w\)):
+- Moving Average (window $$w$$):
 ```math
 \hat{y}_{t+h} = \frac{1}{w} \sum_{i=1}^{w} y_{t+1-i}
 ```
   (Chunked: reuse this mean for the next block, then refresh history with revealed actuals.)
-- ARIMA \((p,d,q)\):
+- ARIMA $$(p,d,q)$$:
 ```math
 \hat{y}_{t+1}, \dots, \hat{y}_{t+h}
 ```
@@ -64,7 +64,7 @@ python sp500_falcon_forecast.py \
 ```math
 \hat{P}_{t+j} = \hat{P}_{t+j-1} \times (1 + \hat{r}_{t+j})
 ```
-  where \(\hat{r}_{t+j}\) is the forecast mean return; after each block, history is refreshed with actuals.
+  where $$\hat{r}_{t+j}$$ is the forecast mean return; after each block, history is refreshed with actuals.
 - Falcon-TST: Transformer that forecasts the next block (1/5/10/20 days) from the recent standardized context; after each block, the true block is appended and the next block is predicted.
 
 ## Notes
